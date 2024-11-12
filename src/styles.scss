@@ -1,1 +1,107 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importações Globais */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Configuração da Fonte */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg,
+            rgba(0, 77, 128, 0.9),
+            rgba(0, 122, 204, 0.7),
+            rgba(40, 167, 69, 0.9),
+            rgba(133, 224, 133, 0.8),
+            rgba(0, 77, 128, 0.9));
+    background-size: 300% 300%;
+    animation: gradientAnimation 10s infinite;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    /* Cor do texto padrão */
+}
+
+/* Animação do Gradiente */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    25% {
+        background-position: 50% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    75% {
+        background-position: 50% 100%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Paleta de Cores Globais */
+$primary-blue: #004d80;
+$secondary-blue: #007acc;
+$light-blue: #e6f7ff;
+$green: #28a745;
+$green-light: #85e085;
+$text-gray: #333;
+
+/* Variáveis de Tipografia */
+$font-family-primary: 'Roboto', sans-serif;
+$font-weight-light: 400;
+$font-weight-regular: 500;
+$font-weight-bold: 700;
+
+/* Estilos Globais */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $primary-blue;
+    font-weight: $font-weight-bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+a {
+    text-decoration: none;
+    color: $secondary-blue;
+
+    &:hover {
+        color: darken($secondary-blue, 10%);
+    }
+}
+
+button {
+    font-family: $font-family-primary;
+    font-weight: $font-weight-regular;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Responsividade Global */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -1,0 +1,102 @@
+// Paleta de Cores
+$primary-blue: #004d80;
+$secondary-blue: #007acc;
+$light-blue: #e6f7ff;
+$hover-background: rgba(255, 255, 255, 0.2);
+$white: #ffffff;
+$button-hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+// Tipografia
+$font-family-primary: 'Roboto', sans-serif;
+$font-weight-regular: 500;
+$font-weight-bold: 700;
+
+// Sombras e luzes
+$header-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+// Header Principal
+.header-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to right, $primary-blue, $secondary-blue);
+    color: $white;
+    font-family: $font-family-primary;
+    box-shadow: $header-shadow;
+    z-index: 1000;
+    padding: 10px 20px;
+
+    .menu-button {
+        display: none; // Escondido em telas maiores
+        color: $white;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .header-title {
+        font-size: 1.5rem;
+        font-weight: $font-weight-bold;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-collapse {
+        display: flex;
+        align-items: center;
+
+        // Layout horizontal para telas maiores
+        flex-direction: row;
+        justify-content: flex-end;
+
+        .nav-button {
+            color: $white;
+            text-transform: capitalize;
+            font-size: 1rem;
+            padding: 10px 15px;
+            margin: 0 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease, transform 0.2s ease;
+
+            i {
+                margin-right: 8px;
+            }
+
+            &:hover {
+                background: $light-blue;
+                transform: translateY(-2px);
+                color: $primary-blue;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .menu-button {
+            display: block; // Aparece apenas em dispositivos móveis
+        }
+
+        .navbar-collapse {
+            flex-direction: column; // Altera para layout vertical no mobile
+            background: $primary-blue;
+            position: absolute;
+            top: 56px;
+            right: 0;
+            width: 100%;
+            padding: 15px 0;
+            box-shadow: $header-shadow;
+
+            .nav-button {
+                margin: 10px 0;
+                text-align: center;
+                width: 100%; // Botões ocupam toda a largura no mobile
+            }
+        }
+    }
+}
