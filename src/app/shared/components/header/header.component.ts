@@ -1,21 +1,21 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavbarService } from '../../services/navbar.service';
+import { NavigationService } from '../../services/navigation.service';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 import { UserService } from '../../services/user.service';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { ThemeService } from '../../services/theme.service';
-import { NavigationService } from '../../services/navigation.service';
-import { NavbarService } from '../../services/navbar.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [MatToolbarModule, CommonModule, FormsModule, MatIconModule],
+  imports: [CommonModule,FormsModule,MatIconButton,MatButton,MatToolbarModule,MatIconModule],
 })
 export class HeaderComponent implements OnInit {
   userName: string | null = null;
@@ -25,61 +25,39 @@ export class HeaderComponent implements OnInit {
     private navigationService: NavigationService,
     private authService: AuthService,
     private userService: UserService,
-    private themeService: ThemeService,
-    private router: Router
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
+    // Observa os dados do usuário
     this.userService.userData$.subscribe((userData) => {
       this.userName = userData ? userData.name : null;
     });
   }
 
-  /**
-   * Navega para uma seção na mesma página ou para uma rota externa.
-   * @param secaoId - ID da seção ou rota
-   */
+  toggleNavbar(): void {
+    // Alterna o estado do menu usando o serviço
+    this.navbarService.toggleNavbar();
+  }
+
   navegarPara(secaoId: string): void {
+    // Realiza a navegação para a rota ou seção correspondente
     if (secaoId === 'login') {
-      this.navigationService.navigateToRoute('/login'); // Rota externa
+      this.navigationService.navigateToRoute('/login');
     } else {
-      this.navigationService.navigateToSection(secaoId); // Seção interna
+      this.navigationService.navigateToSection(secaoId);
     }
     this.navbarService.closeNavbar(); // Fecha o menu após a navegação
   }
 
-  /**
-   * Alterna o estado do menu de navegação.
-   */
-  toggleNavbar(): void {
-    this.navbarService.toggleNavbar();
-  }
-
-  /**
-   * Fecha o menu de navegação quando um clique ocorre fora do menu.
-   * @param event - Evento de clique no documento
-   */
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: Event): void {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.navbar')) {
-      this.navbarService.closeNavbar();
-    }
-  }
-
-  /**
-   * Faz logout do usuário e limpa os dados.
-   */
   logout(): void {
     this.authService.logout();
     this.userService.clearUserData();
-    this.router.navigate(['/']);
+    this.navbarService.closeNavbar(); // Fecha o menu após logout
   }
 
-  /**
-   * Alterna o tema da aplicação.
-   */
   toggleTheme(): void {
+    // Alterna o tema da aplicação
     this.themeService.toggleTheme();
   }
 }

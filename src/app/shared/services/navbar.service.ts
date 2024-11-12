@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavbarService {
-  constructor() {}
+  private navbarState = new BehaviorSubject<boolean>(false); // Estado inicial fechado
+  public isNavbarOpen = this.navbarState.asObservable(); // Exposição como observable
 
-  toggleNavbar() {
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    if (navbarCollapse) {
-      navbarCollapse.classList.toggle('show');
-    }
+  toggleNavbar(): void {
+    this.navbarState.next(!this.navbarState.value); // Alterna o estado
   }
 
-  closeNavbar() {
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-      navbarCollapse.classList.remove('show');
-    }
+  closeNavbar(): void {
+    this.navbarState.next(false); // Fecha o menu
   }
 }

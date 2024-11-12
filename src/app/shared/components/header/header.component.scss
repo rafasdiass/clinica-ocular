@@ -48,42 +48,75 @@ $header-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .navbar-collapse {
-        display: flex;
-        align-items: center;
+        display: none; // Escondido inicialmente
+        flex-direction: column;
+        background-color: $primary-blue;
+        position: absolute;
+        top: 56px;
+        right: 0;
+        width: 100%;
+        padding: 15px 0;
+        box-shadow: $header-shadow;
+        transition: all 0.3s ease;
 
-        // Layout horizontal para telas maiores
-        flex-direction: row;
-        justify-content: flex-end;
+        &.show {
+            display: flex; // Mostra o menu no estado aberto
+        }
 
         .nav-button {
+            margin: 10px 0;
+            text-align: center;
+            width: 100%;
             color: $white;
             text-transform: capitalize;
             font-size: 1rem;
             padding: 10px 15px;
-            margin: 0 10px;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.1);
             transition: background 0.3s ease, transform 0.2s ease;
-
-            i {
-                margin-right: 8px;
-            }
 
             &:hover {
                 background: $light-blue;
                 transform: translateY(-2px);
                 color: $primary-blue;
             }
+
+            mat-icon {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    @media (min-width: 769px) {
+        .navbar-collapse {
+            display: flex; // Sempre visível em telas maiores
+            position: relative;
+            top: 0;
+            right: 0;
+            flex-direction: row;
+            justify-content: flex-end;
+            background-color: transparent;
+            box-shadow: none;
+
+            .nav-button {
+                margin: 0 10px;
+                text-align: center;
+                width: auto;
+            }
+        }
+
+        .menu-button {
+            display: none; // Esconde o botão hambúrguer no desktop
         }
     }
 
     @media (max-width: 768px) {
         .menu-button {
-            display: block; // Aparece apenas em dispositivos móveis
+            display: block; // Mostra o botão hambúrguer em dispositivos móveis
         }
 
         .navbar-collapse {
-            flex-direction: column; // Altera para layout vertical no mobile
+            flex-direction: column;
             background: $primary-blue;
             position: absolute;
             top: 56px;
