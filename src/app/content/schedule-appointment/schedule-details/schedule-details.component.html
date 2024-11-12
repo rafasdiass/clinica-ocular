@@ -1,37 +1,40 @@
 <div class="schedule-details">
     <h2>Escolha a Data, Profissional e Horário</h2>
 
-    <!-- Data -->
-    <mat-form-field appearance="fill">
-        <mat-label>Data</mat-label>
-        <input matInput [matDatepicker]="picker" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <!-- Wrapper para layout responsivo -->
+    <div class="content-wrapper">
+        <!-- Calendário -->
+        <div class="calendar-wrapper">
+            <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+        </div>
 
-    <!-- Profissionais -->
-    <mat-form-field appearance="fill">
-        <mat-label>Profissional</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let professional of professionals" [value]="professional.name">
-                {{ professional.name }} - {{ professional.specialty }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+        <!-- Seção de Profissionais, Horários e Botões -->
+        <div class="options-wrapper">
+            <!-- Profissionais -->
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Profissional</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let professional of professionals" [value]="professional.name">
+                        {{ professional.name }} - {{ professional.specialty }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-    <!-- Horários -->
-    <mat-form-field appearance="fill">
-        <mat-label>Horário</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let time of availableTimes" [value]="time">
-                {{ time }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+            <!-- Horários -->
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Horário</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let time of availableTimes" [value]="time">
+                        {{ time }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
 
-    <!-- Botões -->
-    <div class="actions">
-        <button mat-raised-button color="warn" (click)="onReset()">Voltar</button>
-        <button mat-raised-button color="primary">Confirmar</button>
+            <!-- Botões -->
+            <div class="actions">
+                <button mat-raised-button color="warn" (click)="onReset()">Voltar</button>
+                <button mat-raised-button color="primary">Confirmar</button>
+            </div>
+        </div>
     </div>
 </div>

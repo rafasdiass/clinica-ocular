@@ -2,58 +2,131 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
+    padding: 1.5rem;
+    background-color: #f4f9fe;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: auto;
 
     h2 {
-        font-size: 1.8rem;
-        color: #005b96; // Azul da identidade visual
+        font-size: 1.5rem;
+        color: #005b96;
         font-weight: bold;
         text-align: center;
     }
 
-    mat-form-field {
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
         width: 100%;
-        max-width: 400px;
-        background-color: #f2f9ff; // Fundo suave para contraste
-        border-radius: 8px;
 
-        .mat-input-element {
-            font-size: 1rem;
-            color: #005b96; // Azul principal
+        @media (min-width: 768px) {
+            flex-direction: row; // Itens lado a lado em telas maiores
+            justify-content: space-between;
+        }
+    }
+
+    .calendar-wrapper {
+        width: 100%;
+        background-color: #ffffff;
+        border: 1px solid #cce4f6;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        padding: 1rem;
+
+        @media (min-width: 768px) {
+            flex: 1; // Ocupa espaço proporcional em telas grandes
         }
 
-        .mat-form-field-label {
-            color: #005b96;
+        mat-calendar {
+            width: 100%;
+            max-width: 400px;
+        }
+    }
+
+    .options-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+
+        @media (min-width: 768px) {
+            flex: 1; // Ocupa espaço proporcional ao lado do calendário
+        }
+
+        .form-field {
+            width: 100%;
+            position: relative; // Garante que os menus dropdown sejam posicionados corretamente
+            z-index: 1; // Garante que os menus aparecem acima de outros elementos
+        }
+
+        .mat-form-field {
+            width: 100%; // Preenche a largura disponível
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Sombra leve
+
+            .mat-input-element,
+            .mat-form-field-label {
+                font-size: 1rem;
+                color: #005b96; // Azul principal
+            }
+
+            .mat-form-field-label {
+                font-weight: bold;
+            }
+
+            mat-select {
+                color: #005b96;
+
+                .mat-option {
+                    background-color: #ffffff;
+                    color: #005b96;
+
+                    &:hover {
+                        background-color: #cce4f6;
+                    }
+                }
+            }
         }
     }
 
     .actions {
         display: flex;
-        justify-content: space-between;
         gap: 1rem;
+
+        @media (min-width: 768px) {
+            justify-content: flex-start; // Alinhamento à esquerda em telas maiores
+        }
 
         button {
             font-size: 1rem;
             font-weight: bold;
             padding: 0.5rem 1.5rem;
             border-radius: 8px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 
             &.mat-warn {
-                background-color: #f05a28; // Tom laranja
+                background-color: #f05a28;
                 color: #ffffff;
 
                 &:hover {
-                    background-color: #d94c1e; // Tom mais escuro
+                    background-color: #d94c1e;
+                    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
                 }
             }
 
             &.mat-primary {
-                background-color: #005b96; // Azul principal
+                background-color: #005b96;
                 color: #ffffff;
 
                 &:hover {
-                    background-color: #00487c; // Tom mais escuro
+                    background-color: #00487c;
+                    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
                 }
             }
         }
