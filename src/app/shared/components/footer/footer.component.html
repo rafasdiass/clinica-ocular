@@ -1,1 +1,44 @@
-<p>footer works!</p>
+<div class="custom-footer container-fluid">
+    <div class="row justify-content-center text-center text-md-left">
+        <!-- Logo -->
+        <div class="custom-footer-section col-md-3 mb-4 mb-md-0">
+            <img [src]="clinicInfo.logoUrl" alt="{{ clinicInfo.name }} Logo" class="footer-logo" />
+            <p>{{ clinicInfo.name }}</p>
+            <p>Centro de Laser e Diagnose Ocular</p>
+        </div>
+
+        <!-- Contato -->
+        <div class="custom-footer-section col-md-3 mb-4 mb-md-0">
+            <h6>Contato</h6>
+            <hr />
+            <p><i class="bi bi-geo-alt-fill"></i> {{ clinicInfo.endereco }}</p>
+            <p><i class="bi bi-telephone-fill"></i> {{ clinicInfo.telefone }}</p>
+            <p><i class="bi bi-envelope-fill"></i> {{ clinicInfo.email }}</p>
+        </div>
+
+        <!-- Links Úteis -->
+        <div class="custom-footer-section col-md-3 mb-4 mb-md-0">
+            <h6>Links Úteis</h6>
+            <hr />
+            <p *ngFor="let link of usefulLinks">
+                <a [routerLink]="link.route">{{ link.label }}</a>
+            </p>
+        </div>
+
+        <!-- Redes Sociais -->
+        <div class="custom-footer-section col-md-3">
+            <h6>Redes Sociais</h6>
+            <hr />
+            <div class="social-links">
+                <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer"
+                    [attr.aria-label]="social.label" class="social-link">
+                    <i [class]="social.iconClass"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom text-center mt-3">
+        <p>&copy; 2024 {{ clinicInfo.name }}. Todos os direitos reservados.</p>
+    </div>
+</div>

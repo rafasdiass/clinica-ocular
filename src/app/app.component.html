@@ -1,5 +1,18 @@
-<app-header></app-header> <!-- Cabeçalho -->
-<main>
-  <router-outlet></router-outlet> <!-- Renderiza o componente da rota atual -->
-</main>
-<app-footer></app-footer> <!-- Rodapé -->
+<div class="container">
+  <!-- Cabeçalho -->
+  <div class="header-wrapper">
+    <app-header></app-header>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="content-wrapper">
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <!-- Rodapé -->
+  <div class="footer-wrapper">
+    <app-footer></app-footer>
+  </div>
+</div>

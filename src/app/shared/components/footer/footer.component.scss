@@ -1,0 +1,142 @@
+// Paleta de Cores
+$primary-blue: #004d80;
+$secondary-blue: #007acc;
+$light-blue: #e6f7ff;
+$text-gray: #f0f0f0; // Melhor contraste para texto no rodapé
+$white: #ffffff;
+
+// Tipografia
+$font-family-primary: 'Roboto', sans-serif;
+$font-weight-regular: 500;
+$font-weight-bold: 700;
+
+// Footer Estilos
+.custom-footer {
+    background: linear-gradient(to bottom, $primary-blue, $secondary-blue);
+    color: $text-gray;
+    font-family: $font-family-primary;
+    padding: 20px 15px; // Altura reduzida
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    min-height: 150px; // Garantindo uma altura mínima confortável
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.2); // Leve sombra para destaque
+    width: 100%; // Garantir que o footer ocupe 100% da largura da tela
+    left: 0; // Garantir que o footer não fique deslocado
+    right: 0; // Garantir que o footer ocupe toda a largura
+
+    .footer-logo {
+        max-width: 120px; // Reduzindo o tamanho da logo
+        margin-bottom: 10px;
+    }
+
+    h6 {
+        font-size: 1.1rem;
+        font-weight: $font-weight-bold;
+        margin-bottom: 5px;
+    }
+
+    hr {
+        width: 40px;
+        border: 1px solid $white;
+        margin: 5px auto;
+    }
+
+    p {
+        font-size: 0.9rem;
+        margin: 3px 0;
+
+        a {
+            color: $light-blue;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+                color: $white;
+            }
+        }
+    }
+
+    // Redes Sociais
+    .social-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        .social-link {
+            color: $light-blue;
+            font-size: 1.3rem; // Ajustado para ícones menores
+            transition: color 0.3s ease, transform 0.3s ease;
+
+            &:hover {
+                color: $white;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .footer-bottom {
+        margin-top: 15px;
+        font-size: 0.8rem;
+        color: $light-blue;
+    }
+
+    // Responsividade (Mobile-First)
+    @media (max-width: 768px) {
+        .custom-footer-section {
+            margin-bottom: 15px;
+        }
+
+        .footer-logo {
+            max-width: 100px;
+        }
+
+        p {
+            font-size: 0.85rem;
+        }
+
+        .social-links {
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (min-width: 769px) {
+        // Ajustes para telas maiores (tablets, desktops)
+        padding: 20px 30px; // Mais padding para telas maiores
+
+        .footer-logo {
+            max-width: 150px; // Aumentando o tamanho da logo
+        }
+
+        .social-links {
+            gap: 15px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        // Para desktop, se necessário, mais ajustes de espaçamento
+        padding: 20px 40px;
+    }
+}
+
+// Garante que o footer fique fixo ao rodapé
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-footer {
+    margin-top: auto;
+    width: 130%; // Garante que o rodapé ocupe 100% da largura disponível
+    left: 0; // Previne que o rodapé fique desalinhado
+    right: 0; // Previne que o rodapé fique desalinhado
+}
