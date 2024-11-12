@@ -1,0 +1,40 @@
+.type-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #005b96;
+        text-align: center;
+    }
+
+    .type-options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+
+        button {
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 0.7rem 1.5rem;
+            background-color: #005b96; // Azul principal
+            color: #ffffff;
+            border-radius: 10px;
+            border: none;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: #00487c; // Azul mais escuro
+                transform: translateY(-2px);
+            }
+
+            &:focus {
+                outline: 2px solid #f05a28; // Destaque laranja
+                outline-offset: 2px;
+            }
+        }
+    }
+}

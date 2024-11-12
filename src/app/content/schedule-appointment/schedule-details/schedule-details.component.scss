@@ -1,0 +1,61 @@
+.schedule-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    h2 {
+        font-size: 1.8rem;
+        color: #005b96; // Azul da identidade visual
+        font-weight: bold;
+        text-align: center;
+    }
+
+    mat-form-field {
+        width: 100%;
+        max-width: 400px;
+        background-color: #f2f9ff; // Fundo suave para contraste
+        border-radius: 8px;
+
+        .mat-input-element {
+            font-size: 1rem;
+            color: #005b96; // Azul principal
+        }
+
+        .mat-form-field-label {
+            color: #005b96;
+        }
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+
+        button {
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+
+            &.mat-warn {
+                background-color: #f05a28; // Tom laranja
+                color: #ffffff;
+
+                &:hover {
+                    background-color: #d94c1e; // Tom mais escuro
+                }
+            }
+
+            &.mat-primary {
+                background-color: #005b96; // Azul principal
+                color: #ffffff;
+
+                &:hover {
+                    background-color: #00487c; // Tom mais escuro
+                }
+            }
+        }
+    }
+}

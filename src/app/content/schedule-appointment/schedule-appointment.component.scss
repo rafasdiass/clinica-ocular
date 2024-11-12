@@ -1,52 +1,41 @@
-// Paleta de Cores
-$primary-color: #004d80;
-$secondary-color: #007acc;
-$error-color: #e53935;
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
 
-// Estilos do Card
-.appointment-card {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    .card-title {
-        display: flex;
-        align-items: center;
-        font-size: 1.5rem;
+    h2 {
+        font-size: 1.8rem;
         font-weight: bold;
-        color: $primary-color;
-
-        mat-icon {
-            margin-right: 8px;
-        }
+        text-align: center;
+        color: #005b96; // Azul principal
     }
 
-    form {
+    .type-selection {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        align-items: center;
+        gap: 1rem;
 
-        mat-form-field {
-            width: 100%;
-        }
+        .type-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
 
-        button {
-            align-self: flex-end;
-            background-color: $primary-color;
-            color: #fff;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            button {
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding: 0.8rem 2rem;
+                background-color: #005b96; // Azul principal
+                color: #ffffff;
+                border-radius: 12px;
+                transition: transform 0.3s ease, background-color 0.3s ease;
 
-            &:hover {
-                background-color: $secondary-color;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-
-            mat-icon {
-                margin-right: 8px;
+                &:hover {
+                    transform: scale(1.05);
+                    background-color: #00487c; // Azul mais escuro
+                }
             }
         }
     }
