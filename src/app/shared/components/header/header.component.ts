@@ -15,7 +15,14 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule,FormsModule,MatIconButton,MatButton,MatToolbarModule,MatIconModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatIconButton,
+    MatButton,
+    MatToolbarModule,
+    MatIconModule,
+  ],
 })
 export class HeaderComponent implements OnInit {
   userName: string | null = null;
@@ -41,13 +48,16 @@ export class HeaderComponent implements OnInit {
   }
 
   navegarPara(secaoId: string): void {
-    // Realiza a navegação para a rota ou seção correspondente
-    if (secaoId === 'login') {
-      this.navigationService.navigateToRoute('/login');
+    if (secaoId === '') {
+      // Rota para a página inicial
+      this.navigationService.navigateToRoute('/');
+    } else if (document.getElementById(secaoId)) {
+      // Navegação por âncora
+      document.getElementById(secaoId)?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      this.navigationService.navigateToSection(secaoId);
+      // Outras rotas configuradas
+      this.navigationService.navigateToRoute(`/${secaoId}`);
     }
-    this.navbarService.closeNavbar(); // Fecha o menu após a navegação
   }
 
   logout(): void {

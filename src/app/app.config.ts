@@ -6,6 +6,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { routes } from './app.routes';
+import { MatNativeDateModule } from '@angular/material/core'; // Importação necessária
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(), // Suporte à SSR com hidratação
     provideAnimationsAsync(), // Suporte a animações
     provideHttpClient(withFetch()), // Configura o HttpClient para usar fetch API
+    importProvidersFrom(MatNativeDateModule), // Configura o MatNativeDateModule
   ],
 };

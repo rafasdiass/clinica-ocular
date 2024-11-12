@@ -1,0 +1,8 @@
+<div class="type-selection">
+    <h2>Selecione o Tipo de Atendimento</h2>
+    <div class="type-options">
+        <button *ngFor="let type of appointmentTypes" mat-raised-button (click)="selectType(type.value)">
+            {{ type.label }}
+        </button>
+    </div>
+</div>

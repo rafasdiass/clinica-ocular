@@ -1,63 +1,11 @@
-<div class="container mt-4">
-    <h2 class="text-center mb-4">
-        <i class="bi bi-calendar-plus"></i> Marcar Consulta
-    </h2>
+<div class="schedule-container">
+    <ng-container [ngSwitch]="currentStep">
+        <!-- Etapa 1: Seleção do Tipo de Atendimento -->
+        <app-select-appointment-type *ngSwitchCase="'selectType'" (typeSelected)="onTypeSelected($event)">
+        </app-select-appointment-type>
 
-    <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="needs-validation">
-        <div class="mb-3">
-            <label for="fullName" class="form-label">Nome Completo</label>
-            <input id="fullName" type="text" class="form-control" placeholder="Digite seu nome completo"
-                formControlName="fullName"
-                [ngClass]="{ 'is-invalid': formControls['fullName'].invalid && formControls['fullName'].touched }" />
-            <div *ngIf="formControls['fullName'].invalid && formControls['fullName'].touched" class="invalid-feedback">
-                O nome completo é obrigatório.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="cpf" class="form-label">CPF</label>
-            <input id="cpf" type="text" class="form-control" placeholder="Digite seu CPF" formControlName="cpf"
-                [ngClass]="{ 'is-invalid': formControls['cpf'].invalid && formControls['cpf'].touched }" />
-            <div *ngIf="formControls['cpf'].invalid && formControls['cpf'].touched" class="invalid-feedback">
-                CPF inválido. Digite 11 dígitos numéricos.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="appointmentType" class="form-label">Tipo de Consulta</label>
-            <select id="appointmentType" class="form-select" formControlName="appointmentType"
-                [ngClass]="{ 'is-invalid': formControls['appointmentType'].invalid && formControls['appointmentType'].touched }">
-                <option value="Clínico">Clínico</option>
-                <option value="DETRAN">DETRAN</option>
-            </select>
-            <div *ngIf="formControls['appointmentType'].invalid && formControls['appointmentType'].touched"
-                class="invalid-feedback">
-                O tipo de consulta é obrigatório.
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="date" class="form-label">Data</label>
-                <input id="date" type="date" class="form-control" formControlName="date"
-                    [ngClass]="{ 'is-invalid': formControls['date'].invalid && formControls['date'].touched }" />
-                <div *ngIf="formControls['date'].invalid && formControls['date'].touched" class="invalid-feedback">
-                    A data é obrigatória.
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="time" class="form-label">Horário</label>
-                <input id="time" type="time" class="form-control" formControlName="time"
-                    [ngClass]="{ 'is-invalid': formControls['time'].invalid && formControls['time'].touched }" />
-                <div *ngIf="formControls['time'].invalid && formControls['time'].touched" class="invalid-feedback">
-                    O horário é obrigatório.
-                </div>
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100" [disabled]="appointmentForm.invalid">
-            <i class="bi bi-check-circle"></i> Agendar Consulta
-        </button>
-    </form>
+        <!-- Etapa 2: Seleção da Data e Profissional -->
+        <app-schedule-details *ngSwitchCase="'scheduleDetails'" [appointmentType]="selectedType" (reset)="resetFlow()">
+        </app-schedule-details>
+    </ng-container>
 </div>

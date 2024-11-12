@@ -1,36 +1,39 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ScheduleDetailsComponent } from './schedule-details/schedule-details.component';
+import { SelectAppointmentTypeComponent } from './select-appointment-type/select-appointment-type.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-schedule-appointment',
   standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [
+    CommonModule, // Necessário para *ngSwitch e outras diretivas estruturais
+    ScheduleDetailsComponent,
+    SelectAppointmentTypeComponent,
+    MatFormFieldModule,
+  ],
   templateUrl: './schedule-appointment.component.html',
   styleUrls: ['./schedule-appointment.component.scss'],
 })
 export class ScheduleAppointmentComponent {
-  appointmentForm: FormGroup;
+  currentStep: 'selectType' | 'scheduleDetails' = 'selectType'; // Etapa atual
+  selectedType: string | null = null; // Tipo de atendimento selecionado
 
-  constructor(private fb: FormBuilder) {
-    this.appointmentForm = this.fb.group({
-      fullName: ['', Validators.required],
-      cpf: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
-      appointmentType: ['Clínico', Validators.required],
-      date: ['', Validators.required],
-      time: ['', Validators.required],
-    });
+  /**
+   * Avança para a etapa de detalhes após selecionar o tipo de atendimento.
+   * @param type Tipo de atendimento selecionado
+   */
+  onTypeSelected(type: string): void {
+    this.selectedType = type;
+    this.currentStep = 'scheduleDetails';
   }
 
-  get formControls(): { [key: string]: any } {
-    return this.appointmentForm.controls;
-  }
-
-  onSubmit(): void {
-    if (this.appointmentForm.valid) {
-      console.log('Consulta agendada com sucesso:', this.appointmentForm.value);
-      alert('Consulta agendada com sucesso!');
-      this.appointmentForm.reset();
-    }
+  /**
+   * Reseta o fluxo para a seleção inicial.
+   */
+  resetFlow(): void {
+    this.currentStep = 'selectType';
+    this.selectedType = null;
   }
 }

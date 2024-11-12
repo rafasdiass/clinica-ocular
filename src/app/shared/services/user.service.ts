@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserData } from '../models/app-user.model';
 import { LocalStorageService } from './local-storage.service';
+import { isBrowser } from '../../utils/environment.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,9 @@ export class UserService {
   private readonly USER_DATA_KEY = 'userData';
 
   constructor(private localStorageService: LocalStorageService) {
-    this.loadUserDataFromStorage();
+    if (isBrowser()) {
+      this.loadUserDataFromStorage(); // Só carrega dados no navegador
+    }
   }
 
   /**
@@ -35,7 +38,11 @@ export class UserService {
    */
   setUserData(userData: UserData): void {
     this.userDataSubject.next(userData);
-    this.localStorageService.guardarDados(this.USER_DATA_KEY, userData);
+    if (isBrowser()) {
+      this.localStorageService.guardarDados(this.USER_DATA_KEY, userData);
+    } else {
+      console.warn('Tentativa de salvar dados fora do ambiente do navegador.');
+    }
   }
 
   /**
@@ -51,7 +58,11 @@ export class UserService {
    */
   clearUserData(): void {
     this.userDataSubject.next(null);
-    this.localStorageService.limparDados(this.USER_DATA_KEY);
+    if (isBrowser()) {
+      this.localStorageService.limparDados(this.USER_DATA_KEY);
+    } else {
+      console.warn('Tentativa de limpar dados fora do ambiente do navegador.');
+    }
   }
 
   /**

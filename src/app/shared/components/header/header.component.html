@@ -10,27 +10,42 @@
 
     <!-- Navegação -->
     <div class="navbar-collapse" [class.show]="navbarService.isNavbarOpen | async">
-        <button mat-button class="nav-button" (click)="navegarPara('home')">
+        <!-- Home -->
+        <button mat-button class="nav-button" (click)="navegarPara('')">
             <mat-icon>home</mat-icon> Home
         </button>
-        <button mat-button class="nav-button" (click)="navegarPara('about')">
+        <!-- Sobre -->
+        <button mat-button class="nav-button" (click)="navegarPara('app-about')">
             <mat-icon>info</mat-icon> Sobre
         </button>
-        <button mat-button class="nav-button" (click)="navegarPara('contato')">
-            <mat-icon>email</mat-icon> Contato
+        <!-- Marcar Consulta -->
+        <button mat-button class="nav-button" (click)="navegarPara('marcar-consulta')">
+            <mat-icon>event</mat-icon> Marcar Consulta
         </button>
-        <button mat-button class="nav-button" (click)="navegarPara('exames')">
-            <mat-icon>science</mat-icon> Exames
+        <!-- Marcar Exames -->
+        <button mat-button class="nav-button" (click)="navegarPara('marcar-exames')">
+            <mat-icon>science</mat-icon> Marcar Exames
         </button>
-        <button mat-button class="nav-button" (click)="navegarPara('agenda')">
-            <mat-icon>calendar_today</mat-icon> Agenda
+        <!-- Agendar Retorno -->
+        <button mat-button class="nav-button" (click)="navegarPara('agendar-retorno')">
+            <mat-icon>replay</mat-icon> Agendar Retorno
         </button>
+        <!-- Assistente Virtual -->
+        <button mat-button class="nav-button" (click)="navegarPara('assistente')">
+            <mat-icon>chat</mat-icon> Assistente Virtual
+        </button>
+        <!-- Meu Perfil -->
+        <button mat-button class="nav-button" (click)="navegarPara('meu-perfil')">
+            <mat-icon>person</mat-icon> Meu Perfil
+        </button>
+        <!-- Login / Logout -->
         <button mat-button class="nav-button" *ngIf="!userName" (click)="navegarPara('login')">
             <mat-icon>login</mat-icon> Login
         </button>
         <button mat-button class="nav-button" *ngIf="userName" (click)="logout()">
             <mat-icon>logout</mat-icon> Logout
         </button>
+        <!-- Alternar Tema -->
         <button mat-button class="nav-button" (click)="toggleTheme()">
             <mat-icon>brightness_4</mat-icon> Tema
         </button>
