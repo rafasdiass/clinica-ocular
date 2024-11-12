@@ -1,4 +1,3 @@
-// src/app/app.routing.ts
 import { Routes } from '@angular/router';
 
 // Importação dos componentes de conteúdo
@@ -9,6 +8,8 @@ import { ScheduleReturnComponent } from './content/schedule-return/schedule-retu
 import { ChatAssistantComponent } from './content/chat-assistant/chat-assistant.component';
 import { PatientProfileComponent } from './content/patient-profile/patient-profile.component';
 import { NotificationDetailsComponent } from './content/notification-details/notification-details.component';
+import { LoginComponent } from './shared/components/auth/login/login.component';
+import { RegisterComponent } from './shared/components/auth/register/register.component';
 
 // Definição das rotas
 export const routes: Routes = [
@@ -19,5 +20,7 @@ export const routes: Routes = [
   { path: 'assistente', component: ChatAssistantComponent }, // Página do assistente virtual
   { path: 'meu-perfil', component: PatientProfileComponent }, // Página do perfil do paciente
   { path: 'detalhes-marcacao', component: NotificationDetailsComponent }, // Página de detalhes da marcação
+  { path: 'login', component: LoginComponent }, // Página de login
+  { path: 'register', component: RegisterComponent }, // Página de cadastro
   { path: '**', redirectTo: '' }, // Redireciona para a página inicial em caso de rota inválida
 ];

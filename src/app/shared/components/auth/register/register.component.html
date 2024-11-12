@@ -1,0 +1,41 @@
+<div class="register-container">
+    <h2>Cadastro</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Nome Completo</mat-label>
+            <input matInput formControlName="fullName" placeholder="Digite seu nome completo" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf" type="text" placeholder="Digite seu CPF" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email" placeholder="Digite seu e-mail" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="phone" type="text" placeholder="Digite seu telefone" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Senha</mat-label>
+            <input matInput formControlName="password" type="password" placeholder="Digite sua senha" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Confirmar Senha</mat-label>
+            <input matInput formControlName="confirmPassword" type="password" placeholder="Confirme sua senha" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+            Cadastrar
+        </button>
+    </form>
+
+    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</div>

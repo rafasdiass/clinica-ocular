@@ -1,0 +1,39 @@
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        color: #005b96;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-field {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .error-message {
+        color: #d32f2f;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 1.5rem;
+
+        a {
+            color: #005b96;
+            text-decoration: none;
+        }
+    }
+}

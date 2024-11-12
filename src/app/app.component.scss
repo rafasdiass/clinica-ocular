@@ -1,56 +1,30 @@
-// Estilos principais do layout
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html,
-body {
-    height: 100%;
-    width: 100%; // Garantir que a largura seja 100%
-    overflow-x: hidden; // Previne a rolagem lateral
-}
-
-body {
+.layout {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%; // Garantir que o body ocupe toda a largura da tela
-}
+    min-height: 100vh; // Garante que a página ocupe a altura total da janela
 
-// Container principal que organiza a página
-.container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%; // Garantir que o container ocupe toda a largura da tela
-}
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        background-color: #ffffff; // Fundo branco ou outro padrão
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Sombra sutil para o cabeçalho
+    }
 
-// Estilo para o cabeçalho - fixo no topo
-.header-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-}
+    .content {
+        flex: 1; // O conteúdo principal ocupa o espaço restante
+        margin-top: 60px; // Espaço para o cabeçalho fixo
+        padding: 1rem; // Espaçamento interno para conteúdo
+        width: 100%; // Garante que o conteúdo ocupe toda a largura
+    }
 
-// Estilo para o conteúdo, com margem para o cabeçalho fixo
-.content-wrapper {
-    margin-top: 60px; // Afastamento para o cabeçalho
-    margin-bottom: 60px; // Afastamento para o rodapé
-    flex: 1;
-    width: 100%; // Garantir que o conteúdo ocupe toda a largura
-}
-
-// Estilo para o rodapé
-.footer-wrapper {
-    position: relative; // Não fixo, se ajusta ao final da página
-    width: 100%; // Garantir que o rodapé ocupe toda a largura da tela
-    margin-top: auto; // Garante que o rodapé fique no final da página
-    left: 0; // Garantir que o footer não fique desalinhado
-    right: 0; // Garantir que o footer ocupe toda a largura
-    z-index: 10;
+    .footer {
+        width: 100%; // Garante que o rodapé ocupe toda a largura
+        margin-top: auto; // Empurra o rodapé para o fim do layout
+       
+       
+        box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); // Sombra sutil para o rodapé
+    }
 }

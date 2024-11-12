@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { UserData } from '../models/app-user.model';
 import { LocalStorageService } from './local-storage.service';
 import { isBrowser } from '../../utils/environment.utils';
@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(private localStorageService: LocalStorageService) {
     if (isBrowser()) {
-      this.loadUserDataFromStorage(); // Só carrega dados no navegador
+      this.loadUserDataFromStorage(); // Carrega dados no navegador
     }
   }
 
@@ -69,16 +69,23 @@ export class UserService {
    * Simula a criação de um usuário em um backend ou apenas armazena os dados localmente.
    * @param userAuth Dados básicos do usuário
    * @param additionalData Dados adicionais para o usuário
+   * @returns Observable<void> Simula sucesso ao criar o usuário
    */
-  createUser(userAuth: UserData, additionalData: Partial<UserData>): void {
+  createUser(
+    userAuth: UserData,
+    additionalData: Partial<UserData>
+  ): Observable<void> {
     const userData: UserData = {
       ...userAuth,
       ...additionalData,
       role: 'user', // Define o role como 'user' por padrão
     };
 
-    // Simula a criação no backend ou simplesmente armazena localmente
+    // Salva os dados localmente
     this.setUserData(userData);
     console.log('Usuário criado com sucesso:', userData);
+
+    // Retorna um Observable simulando sucesso
+    return of();
   }
 }
