@@ -1,0 +1,39 @@
+.admin-page-container {
+    display: flex;
+    flex-direction: column; // Mobile-first: começa como coluna
+    gap: 20px;
+    padding: 10px;
+    background-color: #f4f6f9; // Fundo cinza claro
+
+    // Estilização para cada coluna
+    .dashboard-column,
+    .manage-doctors-column {
+        background-color: #ffffff; // Fundo branco para destaque
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    // Responsividade para telas maiores
+    @media (min-width: 768px) {
+        flex-direction: row; // Mudança para duas colunas lado a lado
+        justify-content: space-between;
+
+        .dashboard-column {
+            flex: 1; // Ocupa metade da largura disponível
+            margin-right: 10px; // Espaçamento entre colunas
+        }
+
+        .manage-doctors-column {
+            flex: 2; // Ocupa mais espaço para acomodar o gerenciamento de médicos
+        }
+    }
+
+    @media (min-width: 1024px) {
+        padding: 20px; // Aumenta o espaçamento em telas maiores
+
+        .dashboard-column {
+            margin-right: 20px;
+        }
+    }
+}

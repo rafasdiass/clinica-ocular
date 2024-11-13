@@ -1,0 +1,220 @@
+.manage-doctors-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f4f6f9; // Fundo geral mais claro, neutro e coeso.
+
+    h2 {
+        color: #0821b0; // Azul mais forte para título.
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .mat-card {
+        background-color: #ffffff; // Branco para destacar o conteúdo.
+        color: #333333; // Texto cinza escuro para melhor leitura.
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); // Leve elevação ao hover.
+        }
+    }
+
+    mat-table {
+        width: 100%;
+        background-color: #ffffff; // Fundo branco coeso com o card.
+        border-radius: 8px;
+
+        mat-header-cell {
+            background-color: #0e4681; // Azul escuro consistente.
+            color: #ffffff; // Texto branco para contraste.
+            font-weight: bold;
+            text-align: left;
+            padding: 12px;
+        }
+
+        mat-cell {
+            color: #333333; // Cinza escuro para texto.
+            padding: 10px;
+        }
+
+        mat-row:hover {
+            background-color: #eef3fa; // Azul claro no hover.
+        }
+    }
+
+    .doctor-form-dialog,
+    .schedule-section {
+        background-color: #ffffff; // Fundo branco consistente com os cards.
+        color: #333333;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        h3 {
+            color: #0e4681; // Azul escuro para títulos.
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        h4 {
+            color: #0e4681; // Azul escuro para subtítulos.
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+
+            mat-form-field {
+                flex: 1; // Cada campo ocupa o mesmo espaço.
+                min-width: 100px;
+            }
+
+            &.full-width {
+                flex: 0 0 100%; // Campo ocupa largura total.
+            }
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+
+            mat-form-field {
+                background-color: #f7f9fc; // Fundo claro para campos.
+                border-radius: 5px;
+
+                mat-label {
+                    color: #555555; // Cinza médio para rótulos.
+                }
+
+                mat-error {
+                    color: #e53935; // Vermelho para mensagens de erro.
+                }
+
+                mat-icon {
+                    color: #555555; // Ícone cinza médio.
+                }
+
+                input {
+                    color: #333333; // Texto nos campos.
+                }
+            }
+
+            .actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+
+                button {
+                    font-size: 1rem;
+                    padding: 10px 20px;
+                    text-transform: uppercase;
+                }
+            }
+        }
+
+        mat-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            color: #333333; // Cinza escuro para itens de lista.
+
+            &:hover {
+                background-color: #eef3fa; // Azul claro no hover.
+            }
+
+            button {
+                margin-left: 10px;
+                color: #0e4681; // Azul escuro para botões.
+
+                &:hover {
+                    background-color: #e0f2ff; // Fundo azul claro no hover.
+                }
+            }
+        }
+    }
+
+    .schedule-section {
+        margin-top: 20px;
+
+        form {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .manage-doctors-container {
+        padding: 15px;
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        .mat-card {
+            padding: 15px;
+        }
+
+        mat-table {
+            font-size: 0.9rem;
+
+            mat-header-cell {
+                font-size: 0.85rem;
+            }
+
+            mat-cell {
+                font-size: 0.85rem;
+            }
+        }
+
+        .form-row {
+            flex-direction: column; // Campos empilhados em telas menores.
+
+            mat-form-field {
+                width: 100%; // Campos ocupam toda a largura.
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .manage-doctors-container {
+        padding: 10px;
+
+        h2 {
+            font-size: 1.2rem;
+        }
+
+        .mat-card {
+            padding: 10px;
+        }
+
+        mat-table {
+            font-size: 0.8rem;
+
+            mat-header-cell {
+                font-size: 0.75rem;
+            }
+
+            mat-cell {
+                font-size: 0.75rem;
+            }
+        }
+    }
+}

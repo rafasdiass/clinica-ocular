@@ -10,17 +10,28 @@ import { PatientProfileComponent } from './content/patient-profile/patient-profi
 import { NotificationDetailsComponent } from './content/notification-details/notification-details.component';
 import { LoginComponent } from './shared/components/auth/login/login.component';
 import { RegisterComponent } from './shared/components/auth/register/register.component';
+import { AdminLayoutComponent } from './content/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './content/admin-dashboard/admin-dashboard.component';
+import { ManageDoctorsComponent } from './content/manage-doctors/manage-doctors.component';
 
-// Definição das rotas
 export const routes: Routes = [
-  { path: '', component: HomeComponent }, // Rota raiz que direciona para a página inicial
-  { path: 'marcar-consulta', component: ScheduleAppointmentComponent }, // Página para marcar consultas
-  { path: 'marcar-exames', component: ScheduleExamsComponent }, // Página para marcar exames
-  { path: 'agendar-retorno', component: ScheduleReturnComponent }, // Página para agendar retornos
-  { path: 'assistente', component: ChatAssistantComponent }, // Página do assistente virtual
-  { path: 'meu-perfil', component: PatientProfileComponent }, // Página do perfil do paciente
-  { path: 'detalhes-marcacao', component: NotificationDetailsComponent }, // Página de detalhes da marcação
-  { path: 'login', component: LoginComponent }, // Página de login
-  { path: 'register', component: RegisterComponent }, // Página de cadastro
-  { path: '**', redirectTo: '' }, // Redireciona para a página inicial em caso de rota inválida
+  { path: '', component: HomeComponent }, // Página inicial
+  { path: 'marcar-consulta', component: ScheduleAppointmentComponent },
+  { path: 'marcar-exames', component: ScheduleExamsComponent },
+  { path: 'agendar-retorno', component: ScheduleReturnComponent },
+  { path: 'assistente', component: ChatAssistantComponent },
+  { path: 'meu-perfil', component: PatientProfileComponent },
+  { path: 'detalhes-marcacao', component: NotificationDetailsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent, // Componente pai
+    children: [
+      { path: 'admin-dashboard', component: AdminDashboardComponent }, // Dashboard inicial
+      { path: 'gerenciar-medicos', component: ManageDoctorsComponent }, // Gerenciar médicos
+      // Outras páginas administrativas podem ser adicionadas aqui
+    ],
+  },
+  { path: '**', redirectTo: '' },
 ];

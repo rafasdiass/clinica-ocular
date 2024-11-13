@@ -1,1 +1,55 @@
-<p>patient-profile works!</p>
+<div class="profile-container">
+    <mat-card class="profile-card">
+        <h2><mat-icon>account_circle</mat-icon> Meu Perfil</h2>
+        <form [formGroup]="profileForm" (ngSubmit)="onSave()">
+            <!-- Nome -->
+            <mat-form-field appearance="fill">
+                <mat-label>Nome Completo</mat-label>
+                <input matInput formControlName="fullName" placeholder="Digite seu nome completo" />
+            </mat-form-field>
+
+            <!-- Data de Nascimento -->
+            <mat-form-field appearance="fill">
+                <mat-label>Data de Nascimento</mat-label>
+                <input matInput formControlName="birthDate" type="date" />
+            </mat-form-field>
+
+            <!-- CPF -->
+            <mat-form-field appearance="fill">
+                <mat-label>CPF</mat-label>
+                <input matInput formControlName="cpf" placeholder="Digite seu CPF" />
+            </mat-form-field>
+
+            <!-- Telefone -->
+            <mat-form-field appearance="fill">
+                <mat-label>Telefone</mat-label>
+                <input matInput formControlName="phone" placeholder="Digite seu telefone" />
+            </mat-form-field>
+
+            <!-- E-mail -->
+            <mat-form-field appearance="fill">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email" placeholder="Digite seu e-mail" />
+            </mat-form-field>
+
+            <!-- Botão de Salvar -->
+            <div class="actions">
+                <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">
+                    Salvar Alterações
+                </button>
+            </div>
+        </form>
+
+        <!-- Histórico de Agendamentos -->
+        <div class="history">
+            <h3>Histórico de Agendamentos</h3>
+            <mat-list>
+                <mat-list-item *ngFor="let appointment of (appointmentHistory$ | async)">
+                    <mat-icon matListIcon>event</mat-icon>
+                    <div matLine>{{ appointment.date }} - {{ appointment.time }}</div>
+                    <div matLine>Consulta: {{ appointment.appointmentType }}</div>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </mat-card>
+</div>

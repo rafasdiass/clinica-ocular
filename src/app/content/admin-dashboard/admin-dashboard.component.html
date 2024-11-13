@@ -1,0 +1,59 @@
+<div class="admin-dashboard">
+    <!-- Estatísticas -->
+    <div class="stats">
+        <mat-card class="stat-card">
+            <mat-icon>event_available</mat-icon>
+            <div>
+                <h3>{{ stats.totalAppointments }}</h3>
+                <p>Consultas Agendadas</p>
+            </div>
+        </mat-card>
+        <mat-card class="stat-card">
+            <mat-icon>done</mat-icon>
+            <div>
+                <h3>{{ stats.completedAppointments }}</h3>
+                <p>Consultas Concluídas</p>
+            </div>
+        </mat-card>
+        <mat-card class="stat-card">
+            <mat-icon>cancel</mat-icon>
+            <div>
+                <h3>{{ stats.canceledAppointments }}</h3>
+                <p>Consultas Canceladas</p>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Relatórios -->
+    <div class="reports">
+        <h3>Relatórios</h3>
+        <mat-form-field appearance="fill">
+            <mat-label>Filtrar por Médico</mat-label>
+            <mat-select [(value)]="selectedDoctor" (selectionChange)="onFilterChange()">
+                <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+                    {{ doctor.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-table [dataSource]="filteredAppointments" class="mat-elevation-z8">
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+                <mat-cell *matCellDef="let appointment"> {{ appointment.date }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="patient">
+                <mat-header-cell *matHeaderCellDef> Paciente </mat-header-cell>
+                <mat-cell *matCellDef="let appointment"> {{ appointment.patientName }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                <mat-cell *matCellDef="let appointment"> {{ appointment.status }} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+    </div>
+</div>

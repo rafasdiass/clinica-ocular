@@ -1,0 +1,143 @@
+<div class="manage-doctors-container">
+    <mat-card>
+        <div class="card-header">
+            <h2>Gerenciar Médicos</h2>
+            <button mat-raised-button color="primary" (click)="openAddDoctorForm()">Adicionar Médico</button>
+        </div>
+
+        <!-- Tabela de Médicos -->
+        <mat-table [dataSource]="doctors" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                <mat-cell *matCellDef="let doctor"> {{ doctor.name }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="specialty">
+                <mat-header-cell *matHeaderCellDef> Especialidade </mat-header-cell>
+                <mat-cell *matCellDef="let doctor"> {{ doctor.specialty }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+                <mat-cell *matCellDef="let doctor">
+                    <button mat-icon-button color="primary" (click)="openEditDoctorForm(doctor)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteDoctor(doctor.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="selectDoctorForSchedule(doctor)">
+                        <mat-icon>calendar_today</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+    </mat-card>
+
+    <!-- Formulário de Adicionar/Editar Médico -->
+    <div class="doctor-form-dialog" *ngIf="isDoctorDialogOpen">
+        <h3>{{ selectedDoctor ? 'Editar Médico' : 'Adicionar Médico' }}</h3>
+        <form [formGroup]="doctorForm" (ngSubmit)="onDoctorFormSubmit()">
+            <div class="form-row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-error *ngIf="doctorForm.get('name')?.hasError('required')">
+                        Nome é obrigatório
+                    </mat-error>
+                    <mat-error *ngIf="doctorForm.get('name')?.hasError('minlength')">
+                        Nome deve ter no mínimo 3 caracteres
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>CRM</mat-label>
+                    <input matInput formControlName="crm" />
+                    <mat-error *ngIf="doctorForm.get('crm')?.hasError('required')">
+                        CRM é obrigatório
+                    </mat-error>
+                    <mat-error *ngIf="doctorForm.get('crm')?.hasError('pattern')">
+                        CRM deve conter apenas números
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Especialidade</mat-label>
+                    <input matInput formControlName="specialty" />
+                    <mat-error *ngIf="doctorForm.get('specialty')?.hasError('required')">
+                        Especialidade é obrigatória
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="actions">
+                <button mat-raised-button color="primary" type="submit">Salvar</button>
+                <button mat-raised-button color="warn" type="button" (click)="closeDoctorDialog()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Gerenciamento de Agenda -->
+    <div class="schedule-section">
+        <h3>Gerenciar Agenda</h3>
+        <form [formGroup]="scheduleForm" (ngSubmit)="onScheduleSubmit()">
+            <div class="form-row">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Médico</mat-label>
+                    <mat-select formControlName="doctor" (selectionChange)="selectDoctorForSchedule($event.value)">
+                        <mat-option *ngFor="let doctor of doctors" [value]="doctor">
+                            {{ doctor.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="scheduleForm.get('doctor')?.hasError('required')">
+                        Selecione um médico
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Horário de Início</mat-label>
+                    <mat-icon matPrefix>schedule</mat-icon>
+                    <input matInput formControlName="startTime" type="time" />
+                    <mat-error *ngIf="scheduleForm.get('startTime')?.hasError('required')">
+                        Horário de início é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Horário de Término</mat-label>
+                    <mat-icon matPrefix>schedule</mat-icon>
+                    <input matInput formControlName="endTime" type="time" />
+                    <mat-error *ngIf="scheduleForm.get('endTime')?.hasError('required')">
+                        Horário de término é obrigatório
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="actions">
+                <button mat-raised-button color="primary" type="submit">Salvar Agenda</button>
+            </div>
+        </form>
+
+        <h4>Horários Disponíveis</h4>
+        <mat-list>
+            <mat-list-item *ngFor="let schedule of selectedDoctor?.schedule">
+                {{ schedule.day }} - {{ schedule.schedules.join(', ') }}
+                <div>
+                    <button mat-icon-button color="warn" (click)="removeSchedule(schedule)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="blockSchedule(schedule)">
+                        <mat-icon>block</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>
