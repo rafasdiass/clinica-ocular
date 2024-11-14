@@ -3,4 +3,6 @@ export interface Stats {
   totalPatients: number;
   totalAppointments: number;
   totalRevenue: number;
+  completedAppointments: number; // Adicionado para indicar consultas concluídas
+  canceledAppointments: number; // Adicionado para indicar consultas canceladas
 }
