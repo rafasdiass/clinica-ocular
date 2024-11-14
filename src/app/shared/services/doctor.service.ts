@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { Doctor, Schedule } from '../models/doctor.model';
 
@@ -7,79 +7,30 @@ import { Doctor, Schedule } from '../models/doctor.model';
   providedIn: 'root',
 })
 export class DoctorService {
-  private baseUrl = 'https://api.clinica.com/doctors'; // Substitua pela URL do backend
+  private doctorEndpoint = '/doctors';
 
-  constructor(private http: HttpClient) {}
+  constructor(private api: ApiService) {}
 
   getDoctors(): Observable<Doctor[]> {
-    return this.http.get<Doctor[]>(`${this.baseUrl}`);
+    return this.api.get<Doctor[]>(this.doctorEndpoint);
   }
 
   addDoctor(doctor: Partial<Doctor>): Observable<Doctor> {
-    return this.http.post<Doctor>(`${this.baseUrl}`, doctor);
+    return this.api.post<Doctor>(this.doctorEndpoint, doctor);
   }
 
   updateDoctor(doctorId: string, doctor: Partial<Doctor>): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/${doctorId}`, doctor);
+    return this.api.put<void>(`${this.doctorEndpoint}/${doctorId}`, doctor);
   }
 
   deleteDoctor(doctorId: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${doctorId}`);
+    return this.api.delete<void>(`${this.doctorEndpoint}/${doctorId}`);
   }
 
   addSchedule(doctorId: string, schedule: Schedule): Observable<void> {
-    return this.http.post<void>(
-      `${this.baseUrl}/${doctorId}/schedule`,
+    return this.api.post<void>(
+      `${this.doctorEndpoint}/${doctorId}/schedule`,
       schedule
     );
-  }
-
-  removeSchedule(doctorId: string, schedule: Schedule): Observable<void> {
-    return this.http.request<void>(
-      'delete',
-      `${this.baseUrl}/${doctorId}/schedule`,
-      {
-        body: schedule,
-      }
-    );
-  }
-
-  blockSchedule(doctorId: string, schedule: Schedule): Observable<void> {
-    return this.http.post<void>(
-      `${this.baseUrl}/${doctorId}/block-schedule`,
-      schedule
-    );
-  }
-
-  generateTimeSlots(
-    startTime: string,
-    endTime: string,
-    consultationDuration: number,
-    breakDuration: number
-  ): string[] {
-    const slots: string[] = [];
-    let current = this.parseTime(startTime);
-    const end = this.parseTime(endTime);
-
-    while (current < end) {
-      const nextSlot = new Date(
-        current.getTime() + consultationDuration * 60000
-      );
-      slots.push(this.formatTime(current));
-      current = new Date(nextSlot.getTime() + breakDuration * 60000);
-    }
-
-    return slots;
-  }
-
-  private parseTime(time: string): Date {
-    const [hours, minutes] = time.split(':').map(Number);
-    const date = new Date();
-    date.setHours(hours, minutes, 0, 0);
-    return date;
-  }
-
-  private formatTime(date: Date): string {
-    return date.toTimeString().slice(0, 5);
   }
 }

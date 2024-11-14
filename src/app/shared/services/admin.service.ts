@@ -1,24 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
+import { Doctor } from '../models/doctor.model';
+import { Appointment } from '../models/appointment.model';
+import { Stats } from '../models/stats.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private baseUrl = 'https://api.clinica.com/admin';
+  private adminEndpoint = '/admin';
 
-  constructor(private http: HttpClient) {}
+  constructor(private api: ApiService) {}
 
-  getStats(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/stats`);
+  /**
+   * Obtém estatísticas administrativas.
+   */
+  getStats(): Observable<Stats> {
+    return this.api.get<Stats>(`${this.adminEndpoint}/stats`);
   }
 
-  getDoctors(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/doctors`);
+  /**
+   * Obtém a lista de médicos.
+   */
+  getDoctors(): Observable<Doctor[]> {
+    return this.api.get<Doctor[]>(`${this.adminEndpoint}/doctors`);
   }
 
-  getAppointmentsByDoctor(doctorId: string | null): Observable<any> {
-    return this.http.get(`${this.baseUrl}/appointments?doctorId=${doctorId}`);
+  /**
+   * Obtém as consultas de um médico específico.
+   */
+  getAppointmentsByDoctor(doctorId: string): Observable<Appointment[]> {
+    return this.api.get<Appointment[]>(
+      `${this.adminEndpoint}/appointments?doctorId=${doctorId}`
+    );
   }
 }

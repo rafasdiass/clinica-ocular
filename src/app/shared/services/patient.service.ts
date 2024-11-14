@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
-import { Patient} from '../models/patient.model';
+import { Patient } from '../models/patient.model';
 import { Appointment } from '../models/appointment.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
-  private baseUrl = 'https://api.clinica.com'; // Substitua pela URL real
+  private patientEndpoint = '/patient';
 
-  constructor(private http: HttpClient) {}
+  constructor(private api: ApiService) {}
 
   getPatientData(): Observable<Patient> {
-    return this.http.get<Patient>(`${this.baseUrl}/patient/profile`);
+    return this.api.get<Patient>(`${this.patientEndpoint}/profile`);
   }
 
   getAppointmentHistory(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(`${this.baseUrl}/patient/appointments`);
+    return this.api.get<Appointment[]>(`${this.patientEndpoint}/appointments`);
   }
 
   updatePatientData(data: Partial<Patient>): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/patient/profile`, data);
+    return this.api.put<void>(`${this.patientEndpoint}/profile`, data);
   }
 }

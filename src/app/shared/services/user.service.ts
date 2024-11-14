@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from './api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserData } from '../models/app-user.model';
 
@@ -7,44 +7,54 @@ import { UserData } from '../models/app-user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/users'; // Substitua pelo endpoint real
+  private userEndpoint = '/users';
   private userDataSubject = new BehaviorSubject<UserData | null>(null);
   public userData$ = this.userDataSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private api: ApiService) {}
 
   /**
-   * Cria um novo usuário no backend.
-   * @param userAuth Dados do usuário
-   * @param additionalData Dados adicionais, como role
+   * Cria um novo usuário.
    */
   createUser(
     userAuth: Partial<UserData>,
     additionalData: Partial<UserData>
   ): Observable<UserData> {
     const userData = { ...userAuth, ...additionalData };
-    return this.http.post<UserData>(`${this.apiUrl}/register`, userData);
+    return this.api.post<UserData>(`${this.userEndpoint}/register`, userData);
   }
 
   /**
-   * Define os dados do usuário localmente.
-   * @param userData Dados do usuário
+   * Obtém informações do perfil do usuário.
+   */
+  getUserProfile(): Observable<UserData> {
+    return this.api.get<UserData>(`${this.userEndpoint}/profile`);
+  }
+
+  /**
+   * Atualiza informações do perfil do usuário.
+   */
+  updateUserProfile(data: Partial<UserData>): Observable<void> {
+    return this.api.put<void>(`${this.userEndpoint}/profile`, data);
+  }
+
+  /**
+   * Define dados do usuário localmente.
    */
   setUserData(userData: UserData): void {
     this.userDataSubject.next(userData);
-    // Caso deseje persistir no localStorage:
     localStorage.setItem('userData', JSON.stringify(userData));
   }
 
   /**
-   * Retorna os dados do usuário do BehaviorSubject.
+   * Retorna dados do usuário localmente.
    */
   getUserData(): UserData | null {
     return this.userDataSubject.value;
   }
 
   /**
-   * Limpa os dados do usuário.
+   * Limpa os dados do usuário localmente.
    */
   clearUserData(): void {
     this.userDataSubject.next(null);
