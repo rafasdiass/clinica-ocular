@@ -15,6 +15,12 @@ import {
   faChartLine,
   faClipboard,
   faDollarSign,
+  faCheckCircle,
+  faTimesCircle,
+  faUserMd,
+  faClipboardList,
+  faChartBar,
+  faCalendarAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { AdminService } from '../../shared/services/admin.service';
 import { Appointment } from '../../shared/models/appointment.model';
@@ -50,13 +56,27 @@ export class AdminDashboardComponent implements OnInit {
   filteredAppointments: Appointment[] = [];
   displayedColumns: string[] = ['date', 'patient', 'status'];
   selectedDoctor: string | null = null;
+  isLoadingStats = true;
+  isLoadingDoctors = true;
+  hasErrorStats = false;
+  hasErrorDoctors = false;
 
   constructor(
     private adminService: AdminService,
     private library: FaIconLibrary
   ) {
-    // Registrar ícones FontAwesome
-    this.library.addIcons(faUsers, faChartLine, faClipboard, faDollarSign);
+    this.library.addIcons(
+      faUsers,
+      faChartLine,
+      faClipboard,
+      faDollarSign,
+      faCheckCircle,
+      faTimesCircle,
+      faUserMd,
+      faClipboardList,
+      faChartBar,
+      faCalendarAlt
+    );
   }
 
   ngOnInit(): void {
@@ -65,15 +85,21 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   /**
-   * Carrega estatísticas administrativas.
+   * Carrega as estatísticas administrativas.
    */
   private loadStats(): void {
+    this.isLoadingStats = true;
+    this.hasErrorStats = false;
+
     this.adminService.getStats().subscribe({
       next: (data: Stats) => {
         this.stats = data;
+        this.isLoadingStats = false;
       },
       error: (err) => {
         console.error('Erro ao carregar estatísticas:', err);
+        this.hasErrorStats = true;
+        this.isLoadingStats = false;
       },
     });
   }
@@ -82,18 +108,24 @@ export class AdminDashboardComponent implements OnInit {
    * Carrega a lista de médicos.
    */
   private loadDoctors(): void {
+    this.isLoadingDoctors = true;
+    this.hasErrorDoctors = false;
+
     this.adminService.getDoctors().subscribe({
       next: (data: Doctor[]) => {
         this.doctors = data;
+        this.isLoadingDoctors = false;
       },
       error: (err) => {
         console.error('Erro ao carregar médicos:', err);
+        this.hasErrorDoctors = true;
+        this.isLoadingDoctors = false;
       },
     });
   }
 
   /**
-   * Filtra as consultas por médico selecionado.
+   * Filtra as consultas com base no médico selecionado.
    */
   onFilterChange(): void {
     if (!this.selectedDoctor) {

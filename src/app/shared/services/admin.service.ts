@@ -9,7 +9,9 @@ import { Appointment } from '../models/appointment.model';
   providedIn: 'root',
 })
 export class AdminService {
-  private adminEndpoint = '/admin';
+  private dashboardEndpoint = '/dashboard';
+  private doctorsEndpoint = '/doctors';
+  private appointmentsEndpoint = '/appointments';
 
   constructor(private api: ApiService) {}
 
@@ -17,24 +19,22 @@ export class AdminService {
    * Obtém estatísticas administrativas.
    */
   getStats(): Observable<Stats> {
-    return this.api.get<Stats>(`${this.adminEndpoint}/stats`);
+    return this.api.get<Stats>(`${this.dashboardEndpoint}/summary`);
   }
 
   /**
    * Obtém a lista de médicos.
    */
   getDoctors(): Observable<Doctor[]> {
-    return this.api.get<Doctor[]>(`${this.adminEndpoint}/doctors`);
+    return this.api.get<Doctor[]>(this.doctorsEndpoint);
   }
 
   /**
    * Obtém as consultas de um médico específico.
    */
-  getAppointmentsByDoctor(doctorId: string | null): Observable<Appointment[]> {
-    const params = doctorId ? { doctorId } : undefined;
+  getAppointmentsByDoctor(doctorId: string): Observable<Appointment[]> {
     return this.api.get<Appointment[]>(
-      `${this.adminEndpoint}/appointments`,
-      params
+      `${this.appointmentsEndpoint}/by-doctor/${doctorId}`
     );
   }
 
@@ -48,26 +48,8 @@ export class AdminService {
   ): Observable<Appointment[]> {
     const params = { status, startDate, endDate };
     return this.api.get<Appointment[]>(
-      `${this.adminEndpoint}/appointments/filter`,
+      `${this.appointmentsEndpoint}/filter`,
       params
-    );
-  }
-
-  /**
-   * Obtém as consultas canceladas.
-   */
-  getCanceledAppointments(): Observable<Appointment[]> {
-    return this.api.get<Appointment[]>(
-      `${this.adminEndpoint}/appointments/canceled`
-    );
-  }
-
-  /**
-   * Obtém as consultas concluídas.
-   */
-  getCompletedAppointments(): Observable<Appointment[]> {
-    return this.api.get<Appointment[]>(
-      `${this.adminEndpoint}/appointments/completed`
     );
   }
 }

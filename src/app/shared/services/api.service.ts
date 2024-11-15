@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environment/environment';
+import { isBrowser } from '../../utils/environment.utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:3000'; // URL base para o backend
+  private baseUrl = environment.apiBaseUrl; // Base URL dinâmica com environment
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    if (isBrowser()) {
+      console.log('LocalStorage disponível:', window.localStorage);
+    }
+  }
 
   /**
    * Realiza uma requisição GET.
